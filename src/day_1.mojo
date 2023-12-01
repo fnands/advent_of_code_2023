@@ -1,5 +1,4 @@
-from python import Python
-from python import PythonObject
+""" Done in Mojo 0.5.0 """
 
 def day_1_part_1():
 
@@ -40,22 +39,21 @@ def main():
 
 
 struct ReplaceNumbers:
-    var nums : PythonObject
-    var nums_strs : PythonObject
-    var builtins: PythonObject
+    var nums : SplitString
+    var nums_strs : SplitString
+
 
     fn __init__(inout self) raises -> None:
         # Would have liked to use a dictionary here, but they are not implemented yet
-        self.builtins = Python.import_module("builtins")
-        self.nums = self.builtins.list(["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero"])
-        self.nums_strs = self.builtins.list(["one1one", "two2two", "three3three", "four4four", "five5five", "six6six", "seven7seven", "eight8eight", "nine9nine", "zero0zero"])
+        self.nums = SplitString("one\ntwo\nthree\nfour\nfive\nsix\nseven\neight\nnine\nzero")
+        self.nums_strs = SplitString("one1one\ntwo2two\nthree3three\nfour4four\nfive5five\nsix6six\nseven7seven\neight8eight\nnine9nine\nzero0zero")
         
 
     fn replace_numbers(self, in_string: String) raises -> String:
         var out_string = in_string
 
         for i in range(self.nums.__len__()):
-            out_string = out_string.replace(self.nums[i].to_string(), self.nums_strs[i].to_string())
+            out_string = out_string.replace(self.nums[i], self.nums_strs[i])
 
         return out_string
 
