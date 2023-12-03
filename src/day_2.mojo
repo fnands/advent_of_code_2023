@@ -9,15 +9,13 @@ It complains about String not having an __iter__method, despite not trying to it
 """
 
 
-from aoc_lib.string_utils import SplitString    
-
+from aoc_lib.string_utils import SplitString
 
 
 def day_2_part_1() -> None:
-
-    # Define cubte limits. This is probably a better way to define a dict in 
-    # Mojo, but I this works. 
-    cube_limits = SillyDict(red_limit = 12, green_limit = 13, blue_limit= 14)
+    # Define cubte limits. This is probably a better way to define a dict in
+    # Mojo, but I this works.
+    cube_limits = SillyDict(red_limit=12, green_limit=13, blue_limit=14)
     sum_possible = 0
 
     with open("input/day_2.txt", "r") as input_file:
@@ -39,7 +37,7 @@ def day_2_part_1() -> None:
             for draw_index in range(game_draws.__len__()):
                 # Split the draw into a list of cubes
                 draw_line = SplitString(game_draws[draw_index], ",")
-                
+
                 # Iterate over the cubes
                 for cube_index in range(draw_line.__len__()):
                     # Parse out the number of cubes and the colour
@@ -52,13 +50,10 @@ def day_2_part_1() -> None:
             if game_possible:
                 sum_possible += atol(game_name[4:].replace(" ", ""))
 
-
-
     print("The sum of possible games IDs is: ", sum_possible)
 
 
 def day_2_part_2() -> None:
-
     sum_powers = 0
 
     with open("input/day_2.txt", "r") as input_file:
@@ -80,7 +75,7 @@ def day_2_part_2() -> None:
             for draw_index in range(game_draws.__len__()):
                 # Split the draw into a list of cubes
                 draw_line = SplitString(game_draws[draw_index], ",")
-                
+
                 # Iterate over the cubes
                 for cube_index in range(draw_line.__len__()):
                     # Parse out the number of cubes and the colour
@@ -91,10 +86,7 @@ def day_2_part_2() -> None:
 
             sum_powers += game_power.get_power()
 
-
-
     print("The sum of game powers is : ", sum_powers)
-
 
 
 def main():
@@ -103,6 +95,12 @@ def main():
 
 
 struct SillyDict:
+    """
+    Not my proudest moment.
+
+    But functions as a dict.
+    """
+
     var red_limit: Int
     var green_limit: Int
     var blue_limit: Int
@@ -122,10 +120,13 @@ struct SillyDict:
             return self.blue_limit
         else:
             print(colour)
-            raise("Colour not found in SillyDict")
+            raise ("Colour not found in SillyDict")
 
 
-struct GamePower: 
+struct GamePower:
+    """Basic sctruct to keep track of the max number of cubes of each
+    colour in a game."""
+
     var min_red: Int
     var min_green: Int
     var min_blue: Int
@@ -146,7 +147,7 @@ struct GamePower:
             if number_of_cubes > self.min_blue:
                 self.min_blue = number_of_cubes
         else:
-            raise("Colour not found in GamePower")
+            raise ("Colour not found in GamePower")
 
     fn get_power(self) -> Int:
         """Calculate power."""
