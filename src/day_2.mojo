@@ -1,4 +1,4 @@
-"""
+""" Done in Mojo 0.5.0 
 The SplitString struct I wrote for day one is coming in handy, so I added it a library. 
 
 I wanted to add a __iter__ method to SplitString, but Mojo does not (yet) support Python style iterators. 
